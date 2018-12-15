@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<meta charset="utf-8">
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<title>Map</title>
+		<style>
+			#map {
+			height: 100%;
+			}
+			html,
+			body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div id="map"></div>
+		<script>
+			
+			
+			function initMap() {
+				
+				
+				
+				var geocoder = new google.maps.Geocoder();
+				
+				var elevator;
+				var myOptions = {
+					//zoom: 10,
+					//center: new google.maps.LatLng(-33.92, 151.25),
+					//mapTypeId: google.maps.MapTypeId.ROADMAP						
+				};
+				var map = new google.maps.Map(document.getElementById('map'), myOptions);
+				var bounds = new google.maps.LatLngBounds();
+				var addresses = [#ADDRLIST];
+				
+				 
+				
+				 
+				
+				
+				/*
+					
+					geocodeAddress(geocoder, map,'ΙΑΣΩΝΙΔΟΥ 20 ΕΛΛΗΝΙΚΟ');
+					geocodeAddress(geocoder, map,'ΒΑΡΑΣΟΒΗΣ 38 ΓΛΥΦΑΔΑ');
+					geocodeAddress(geocoder, map,'ΠΑΤΗΣΙΩΝ 4Α ΑΘΗΝΑ');
+					geocodeAddress(geocoder, map,'ΑΧΑΡΝΩ 49 ΑΘΗΝΑ');
+					
+				*/
+				for (var x = 0; x < addresses.length; x++) {
+					
+					
+					
+					
+					
+					
+					//var latlng = new google.maps.LatLng(37.8871589,23.7573553);
+					
+					var res = addresses[x].split(",");					
+					var latlng = {lat: parseFloat(res[0]), lng: parseFloat(res[1])};
+					
+					
+					var marker = new google.maps.Marker({
+						position: latlng,
+						map: map//,
+						//title: 'Hello World!'
+					});
+					
+					
+					
+					
+					
+					bounds.extend(latlng);							 
+					map.fitBounds(bounds);
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				} 
+				
+				// Apply fitBounds
+				
+				map.fitBounds(bounds);  
+				
+				// Draw the bounds rectangle on the map
+				var ne = bounds.getNorthEast();
+				var sw = bounds.getSouthWest();
+				
+				var boundingBox = new google.maps.Polyline({
+					path: [
+					ne, new google.maps.LatLng(ne.lat(), sw.lng()),
+					sw, new google.maps.LatLng(sw.lat(), ne.lng()), ne
+					],
+					strokeColor: '#FF0000',
+					strokeOpacity: 1.0,
+					strokeWeight: 0
+				});
+				
+				boundingBox.setMap(map);	
+				
+				
+				
+				
+				
+			}
+			
+			
+		</script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=#MAPKEY&callback=initMap&language=#LANG">
+		</script>																																								
